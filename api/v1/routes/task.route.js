@@ -1,24 +1,9 @@
 const express = require("express");
-const Task = require("../../../models/task.model");
 const router = express.Router();
+const controllers = require("../controllers/task.controller");
 
-router.get("/", async (req, res) => {
-    const tasks = await Task.find({
-        deleted: false
-    })
+router.get("/", controllers.index);
 
-    res.json(tasks);
-});
-
-router.get("/detail/:id", async (req, res) => {
-    const id = req.params.id
-
-    const task = await Task.findOne({
-        _id: id,
-        deleted: false
-    })
-
-    res.json(task);
-});
+router.get("/detail/:id", controllers.detail);
 
 module.exports = router;
