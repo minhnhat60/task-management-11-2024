@@ -7,4 +7,4 @@ module.exports = (app) => {
 
     app.use(version+"/fashion", fashionRoutes);
 
-}
+};

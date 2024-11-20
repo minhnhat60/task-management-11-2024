@@ -42,8 +42,7 @@ module.exports.index = async (req, res) => {
     // })
 
     res.json(tasks);
-}
-
+};
 
 // [GET] /api/v1/tasks/detail/:id
 module.exports.detail = async (req, res) => {
@@ -55,7 +54,7 @@ module.exports.detail = async (req, res) => {
     })
 
     res.json(task);
-}
+};
 
 // [PATCH] /api/v1/tasks/change-status/:id
 module.exports.changeStatus = async (req, res) => {
@@ -81,7 +80,7 @@ module.exports.changeStatus = async (req, res) => {
         })
         res.redirect("/tasks");
     }
-}
+};
 
 // [GET] /api/v1/tasks/change-multi
 module.exports.changeMulti = async (req, res) => {
@@ -114,7 +113,7 @@ module.exports.changeMulti = async (req, res) => {
             message: "Không tồn tại!"
         })
     }
-}
+};
 
 // [POST /api/v1/tasks/create
 module.exports.create = async (req, res) => {
@@ -133,4 +132,4 @@ module.exports.create = async (req, res) => {
             message: "Lỗi!"
         })
     }
-}
+};
