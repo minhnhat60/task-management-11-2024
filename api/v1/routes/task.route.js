@@ -6,4 +6,6 @@ router.get("/", controllers.index);
 
 router.get("/detail/:id", controllers.detail);
 
+router.patch("/change-status/:id", controllers.changeStatus);
+
 module.exports = router;
