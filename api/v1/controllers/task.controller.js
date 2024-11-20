@@ -27,6 +27,13 @@ module.exports.index = async (req, res) => {
     console.log(objectPagination);
     // End Pagination
 
+    // Search
+    if(req.query.keyword) {
+        const regex = new RegExp(req.query.keyword, "i");
+        find.title = regex
+    }
+    // End Search
+
     const tasks = await Task.find(find).sort(sort).limit(objectPagination.limitItem).skip(objectPagination.skip);
 
     // res.json({
