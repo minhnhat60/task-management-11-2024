@@ -74,7 +74,6 @@ module.exports.login =  async (req, res) => {
 // [POST]/api/v1/users/password/forgot
 module.exports.forgotPassword = async (req, res) => {
     const email = req.body.email
-    console.log(email);
 
     const emailExist = await User.findOne({
         email: email,
@@ -91,8 +90,6 @@ module.exports.forgotPassword = async (req, res) => {
     }
 
     const otp = generateHelper.generateRandomNumber(8);
-
-    console.log(otp);
 
     // Việc 1: Lưu vào database
     const objectForgotPassword = {
@@ -114,3 +111,34 @@ module.exports.forgotPassword = async (req, res) => {
         message: "Đã gửi mã OTP qua email!"
     })
 };
+
+// [POST]/api/v1/users/password/otp
+module.exports.otpPassword = async (req, res) => {
+    const email = req.body.email;
+    const otp = req.body.otp;
+
+    const result = await ForgotPassword.findOne({
+        email: email,
+        otp: otp
+    })
+
+    if(!result) {
+        res.json({
+            code: 400,
+            message: "Mã OTP không hợp lệ!"
+        })
+        return;
+    }
+
+    const user = await User.findOne({
+        email: email
+    })
+
+    const token = user.token
+
+    res.json({
+        code: 200,
+        message: "Xác thực thành công!",
+        token: token
+    })
+}
