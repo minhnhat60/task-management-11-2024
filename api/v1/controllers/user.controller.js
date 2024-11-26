@@ -175,22 +175,13 @@ module.exports.resetPassword = async (req, res) => {
     })
 };
 
-// [GET] /api/users/detail/:id
+// [GET] /api/users/detail/
 module.exports.detail = async (req, res) => {
     try {
-        const id = req.params.id
-
-        const user = await User.findOne({
-            _id: id,
-            deleted: false
-        }).select("-password -token")
-
-        console.log(user);
-    
         res.json({
             code: 200,
             message: "Thành công!",
-            info: user
+            info: res.locals.user
         })
     } catch (error) {
         res.json({
