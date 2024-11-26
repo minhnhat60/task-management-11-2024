@@ -34,7 +34,7 @@ module.exports.register = async (req, res) => {
     }
 };
 
-// [POST]/api/v1/users/login
+// [POST] /api/v1/users/login
 module.exports.login =  async (req, res) => {
     const email = req.body.email
     const password = req.body.password
@@ -71,7 +71,7 @@ module.exports.login =  async (req, res) => {
     });
 };
 
-// [POST]/api/v1/users/password/forgot
+// [POST] /api/v1/users/password/forgot
 module.exports.forgotPassword = async (req, res) => {
     const email = req.body.email
 
@@ -112,7 +112,7 @@ module.exports.forgotPassword = async (req, res) => {
     })
 };
 
-// [POST]/api/v1/users/password/otp
+// [POST] /api/v1/users/password/otp
 module.exports.otpPassword = async (req, res) => {
     const email = req.body.email;
     const otp = req.body.otp;
@@ -143,7 +143,7 @@ module.exports.otpPassword = async (req, res) => {
     })
 }
 
-// [POST]/api/v1/users/password/reset
+// [POST] /api/v1/users/password/reset
 module.exports.resetPassword = async (req, res) => {
     const token = req.body.token;
     const password = req.body.password;
@@ -173,4 +173,29 @@ module.exports.resetPassword = async (req, res) => {
         code: 200,
         message: "Cập nhật mật khẩu thành công!",
     })
-}
+};
+
+// [GET] /api/users/detail/:id
+module.exports.detail = async (req, res) => {
+    try {
+        const id = req.params.id
+
+        const user = await User.findOne({
+            _id: id,
+            deleted: false
+        }).select("-password -token")
+
+        console.log(user);
+    
+        res.json({
+            code: 200,
+            message: "Thành công!",
+            info: user
+        })
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Lỗi!"
+        })
+    }
+};
