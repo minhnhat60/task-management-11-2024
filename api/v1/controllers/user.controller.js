@@ -191,7 +191,7 @@ module.exports.detail = async (req, res) => {
     }
 };
 
-// [GET]
+// [GET] /api/users/list
 module.exports.list = async (req, res) => {
     const users = await User.find({
         deleted: false
