@@ -190,3 +190,18 @@ module.exports.detail = async (req, res) => {
         })
     }
 };
+
+// [GET]
+module.exports.list = async (req, res) => {
+    const users = await User.find({
+        deleted: false
+    }).select("id fullName email")
+
+    console.log(users);
+
+    res.json({
+        code: 200,
+        message: "Thành công",
+        users: users
+    })
+};
